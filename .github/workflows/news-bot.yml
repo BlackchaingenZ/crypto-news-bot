@@ -1,0 +1,22 @@
+name: Crypto News Bot
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # Chạy mỗi giờ
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run News Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CRYPTO_PANIC_API_KEY: ${{ secrets.CRYPTO_API_KEY }}
+        run: python news_bot.py
