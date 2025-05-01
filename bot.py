@@ -36,24 +36,14 @@ def format_news(news):
     return message
 
 def main():
-    last_check = None
-    
-    while True:
-        now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"Checking news at {now}...")
-        
-        news_items = get_crypto_news()
-        
-        if news_items:
-            for item in news_items[:2]:  # Gửi 2 tin mới nhất
-                if last_check is None or item['published_at'] > last_check:
-                    news_message = format_news(item)
-                    send_to_telegram(news_message)
-        
-        last_check = datetime.utcnow().isoformat()
-        
-        # Chờ 30'
-        time.sleep(1800)
+    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"Checking news at {now}...")
+
+    news_items = get_crypto_news()
+
+    for item in news_items[:2]:  # Gửi 2 tin mới nhất
+        news_message = format_news(item)
+        send_to_telegram(news_message)
 
 if __name__ == "__main__":
     main()
