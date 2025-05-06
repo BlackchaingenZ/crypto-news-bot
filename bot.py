@@ -41,7 +41,7 @@ def main():
 
     news_items = get_crypto_news()
 
-    for item in news_items[:2]:  # Gửi 2 tin mới nhất
+    for item in news_items[:1]:  # Gửi 1 tin mới nhất
         news_message = format_news(item)
         send_to_telegram(news_message)
 
